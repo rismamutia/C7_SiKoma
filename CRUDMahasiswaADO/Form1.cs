@@ -39,9 +39,9 @@ namespace CRUDMahasiswaADO
             }
         }
 
-        private void (object sender, EventArgs e)
+        private void btnConnect_Click(object sender, EventArgs e)
         {
-
+            ConnectDatabase();
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
