@@ -18,6 +18,7 @@ namespace CRUDMahasiswaADO
         public Form1()
         {
             InitializeComponent();
+            conn = new SqlConnection(connectionString);
             
         }
 
