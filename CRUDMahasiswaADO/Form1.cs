@@ -22,12 +22,24 @@ namespace CRUDMahasiswaADO
             
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void ConnectDatabase()
         {
+            try
+            {
+                if (conn.State == System.Data.ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
 
+                MessageBox.Show("Koneksi berhasil");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Koneksi gagal: " + ex.Message);
+            }
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void (object sender, EventArgs e)
         {
 
         }
