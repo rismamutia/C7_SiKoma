@@ -13,9 +13,12 @@ namespace CRUDMahasiswaADO
 {
     public partial class Form1 : Form
     {
+        private readonly SqlConnection conn;
+        private readonly string connectionString = "Data Source=.;Initial Catalog=CRUDMahasiswaADO;Integrated Security=True";
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
