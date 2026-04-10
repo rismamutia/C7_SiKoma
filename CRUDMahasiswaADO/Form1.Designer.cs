@@ -186,7 +186,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 15;
-            this.button4.Text = "button4";
+            this.button4.Text = "Mengubah Data";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // button5
