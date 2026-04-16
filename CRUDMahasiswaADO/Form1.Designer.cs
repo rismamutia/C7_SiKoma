@@ -160,7 +160,7 @@
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(377, 117);
+            this.btnInsert.Location = new System.Drawing.Point(415, 114);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(155, 23);
             this.btnInsert.TabIndex = 14;
