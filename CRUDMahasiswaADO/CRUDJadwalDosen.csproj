@@ -33,7 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,10 +54,46 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDataDosen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDataDosen.Designer.cs">
+      <DependentUpon>FormDataDosen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMahasiswaFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMahasiswaFix.Designer.cs">
+      <DependentUpon>FormMahasiswaFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JadwalPertemuan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JadwalPertemuan.Designer.cs">
+      <DependentUpon>JadwalPertemuan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MelihatReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MelihatReport.Designer.cs">
+      <DependentUpon>MelihatReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDataDosen.resx">
+      <DependentUpon>FormDataDosen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMahasiswaFix.resx">
+      <DependentUpon>FormMahasiswaFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JadwalPertemuan.resx">
+      <DependentUpon>JadwalPertemuan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MelihatReport.resx">
+      <DependentUpon>MelihatReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
