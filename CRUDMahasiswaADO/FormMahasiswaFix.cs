@@ -230,7 +230,6 @@ namespace CRUDMahasiswaADO
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                // Menggunakan index angka [0, 1, 2...] lebih jarang error dibanding nama string
                 txtNIM.Text = row.Cells[0].Value?.ToString();
                 txtNama.Text = row.Cells[1].Value?.ToString();
                 txtEmail.Text = row.Cells[2].Value?.ToString();
