@@ -63,9 +63,9 @@ namespace CRUDMahasiswaADO
                 }
 
                 string query = @"
-SELECT j.JadwalID, d.NIDN, d.Nama, j.Tanggal, j.WaktuMulai, j.WaktuSelesai, j.Status
-FROM JadwalDosen j
-JOIN Dosen d ON j.DosenID = d.DosenID";
+                                SELECT j.JadwalID, d.NIDN, d.Nama, j.Tanggal, j.WaktuMulai, j.WaktuSelesai, j.Status
+                                FROM JadwalDosen j
+                                JOIN Dosen d ON j.DosenID = d.DosenID";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
