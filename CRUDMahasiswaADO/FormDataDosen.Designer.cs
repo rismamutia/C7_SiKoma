@@ -72,21 +72,21 @@
             // 
             // txtNIDN
             // 
-            this.txtNIDN.Location = new System.Drawing.Point(218, 41);
+            this.txtNIDN.Location = new System.Drawing.Point(218, 63);
             this.txtNIDN.Name = "txtNIDN";
             this.txtNIDN.Size = new System.Drawing.Size(100, 22);
             this.txtNIDN.TabIndex = 3;
             // 
             // txtNama
             // 
-            this.txtNama.Location = new System.Drawing.Point(218, 88);
+            this.txtNama.Location = new System.Drawing.Point(218, 114);
             this.txtNama.Name = "txtNama";
             this.txtNama.Size = new System.Drawing.Size(100, 22);
             this.txtNama.TabIndex = 4;
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(218, 135);
+            this.txtEmail.Location = new System.Drawing.Point(218, 169);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(100, 22);
             this.txtEmail.TabIndex = 5;
