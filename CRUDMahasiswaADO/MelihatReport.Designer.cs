@@ -46,7 +46,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(201, 286);
+            this.btnRefresh.Location = new System.Drawing.Point(198, 262);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(425, 286);
+            this.btnClose.Location = new System.Drawing.Point(465, 262);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 2;
