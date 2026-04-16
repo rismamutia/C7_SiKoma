@@ -13,8 +13,7 @@ namespace CRUDMahasiswaADO
 {
     public partial class JadwalPertemuan : Form
     {
-        private readonly string connectionString =
-     "Data Source=.;Initial Catalog=DBJadwalKoordinasi;Integrated Security=True";
+        private readonly string connectionString = "Data Source=.;Initial Catalog=DBJadwalKoordinasi;Integrated Security=True";
 
         private readonly SqlConnection conn;
 
