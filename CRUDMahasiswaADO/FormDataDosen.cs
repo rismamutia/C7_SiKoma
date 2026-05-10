@@ -13,6 +13,8 @@ namespace CRUDMahasiswaADO
 {
     public partial class FormDataDosen : Form
     {
+        private int selectedID = 0;
+
         private readonly SqlConnection conn;
         private readonly string connectionString = "Data Source=.;Initial Catalog=DBJadwalKoordinasi;Integrated Security=True";
         public FormDataDosen()
@@ -253,6 +255,11 @@ namespace CRUDMahasiswaADO
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             dataGridView1.CellClick += dataGridView1_CellContentClick;
+        }
+
+        private void FormDataDosen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

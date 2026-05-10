@@ -16,7 +16,7 @@ namespace CRUDMahasiswaADO
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MelihatReport());
+            Application.Run(new FormLogin());
         }
     }
 }

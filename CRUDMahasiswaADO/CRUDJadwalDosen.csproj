@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseHelper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,11 +61,29 @@
     <Compile Include="FormDataDosen.Designer.cs">
       <DependentUpon>FormDataDosen.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMahasiswaFix.cs">
+    <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMahasiswaFix.Designer.cs">
-      <DependentUpon>FormMahasiswaFix.cs</DependentUpon>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMahasiswa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMahasiswa.Designer.cs">
+      <DependentUpon>FormMahasiswa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUtama.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUtama.Designer.cs">
+      <DependentUpon>FormUtama.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUtama2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUtama2.Designer.cs">
+      <DependentUpon>FormUtama2.cs</DependentUpon>
     </Compile>
     <Compile Include="JadwalPertemuan.cs">
       <SubType>Form</SubType>
@@ -86,8 +105,14 @@
     <EmbeddedResource Include="FormDataDosen.resx">
       <DependentUpon>FormDataDosen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMahasiswaFix.resx">
-      <DependentUpon>FormMahasiswaFix.cs</DependentUpon>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMahasiswa.resx">
+      <DependentUpon>FormMahasiswa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUtama.resx">
+      <DependentUpon>FormUtama.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JadwalPertemuan.resx">
       <DependentUpon>JadwalPertemuan.cs</DependentUpon>

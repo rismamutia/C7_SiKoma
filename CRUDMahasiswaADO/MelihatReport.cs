@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CRUDMahasiswaADO
 {
@@ -20,7 +21,6 @@ namespace CRUDMahasiswaADO
         public MelihatReport()
         {
             InitializeComponent();
-            conn = new SqlConnection(connectionString);
         }
 
 
@@ -36,31 +36,53 @@ namespace CRUDMahasiswaADO
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor =
+            System.Drawing.Color.AliceBlue;
         }
 
-        private void LoadReport()
+        private void LoadReport(string keyword = "")
         {
             try
             {
-                if (conn.State == ConnectionState.Closed)
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
                     conn.Open();
 
-                string query = @"
-                    SELECT 
-                        p.PertemuanID,
-                        m.Nama AS NamaMahasiswa,
-                        p.JadwalID,
-                        p.Status,
-                        p.TanggalPermintaan,
-                        p.CatatanPermintaan
-                    FROM Pertemuan p
-                    JOIN Mahasiswa m ON p.MahasiswaID = m.MahasiswaID";
+                    string query = @"
+                SELECT
+                    p.PertemuanID  AS [ID],
+                    m.NIM          AS [NIM],
+                    m.Nama         AS [Nama Mahasiswa],
+                    d.Nama         AS [Nama Dosen],
+                    j.Tanggal      AS [Tanggal],
+                    j.WaktuMulai   AS [Jam Mulai],
+                    j.WaktuSelesai AS [Jam Selesai],
+                    p.Status       AS [Status],
+                    p.CatatanPermintaan AS [Catatan]
+                FROM Pertemuan p
+                JOIN Mahasiswa   m ON p.MahasiswaID = m.MahasiswaID
+                JOIN JadwalDosen j ON p.JadwalID    = j.JadwalID
+                JOIN Dosen       d ON j.DosenID     = d.DosenID
+                WHERE
+                    m.Nama   LIKE @kw OR
+                    d.Nama   LIKE @kw OR
+                    m.NIM    LIKE @kw OR
+                    p.Status LIKE @kw
+                ORDER BY j.Tanggal DESC";
 
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                    da.SelectCommand.Parameters.AddWithValue("@kw", "%" + keyword + "%");
 
-                dataGridView1.DataSource = dt;
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dataGridView1.DataSource = dt;
+
+                    if (dataGridView1.Columns["ID"] != null)
+                        dataGridView1.Columns["ID"].Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -69,12 +91,37 @@ namespace CRUDMahasiswaADO
         }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            txtSearch.Clear();
             LoadReport();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void MelihatReport_Load_1(object sender, EventArgs e)
+        {
+            SetupGrid();
+            LoadReport();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView1.ReadOnly = true;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            dataGridView1.BorderStyle = BorderStyle.Fixed3D;
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor =
+                System.Drawing.Color.AliceBlue;
+        }
+
+        private void btnCari_Click(object sender, EventArgs e)
+        {
+            LoadReport(txtSearch.Text.Trim());
         }
     }
 }

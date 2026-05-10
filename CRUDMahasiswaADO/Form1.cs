@@ -15,6 +15,8 @@ namespace CRUDMahasiswaADO
     public partial class FormDosen : Form
     {
         int SelectedID = 0;
+        int SelectedDosenID = 0;
+
         public int userID;
         public string nama;
         public string email;
@@ -26,7 +28,6 @@ namespace CRUDMahasiswaADO
         {
             InitializeComponent();
             conn = new SqlConnection(connectionString);
-            dataGridView1.CellClick += new DataGridViewCellEventHandler(dataGridView1_CellClick);
             dataGridView1.CellClick += dataGridView1_CellClick;
 
         }
@@ -63,9 +64,10 @@ namespace CRUDMahasiswaADO
                 }
 
                 string query = @"
-                                SELECT j.JadwalID, d.NIDN, d.Nama, j.Tanggal, j.WaktuMulai, j.WaktuSelesai, j.Status
-                                FROM JadwalDosen j
-                                JOIN Dosen d ON j.DosenID = d.DosenID";
+                            SELECT j.JadwalID, j.DosenID, d.NIDN, d.Nama, 
+                                   j.Tanggal, j.WaktuMulai, j.WaktuSelesai, j.Status
+                            FROM JadwalDosen j
+                            JOIN Dosen d ON j.DosenID = d.DosenID";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
@@ -84,18 +86,17 @@ namespace CRUDMahasiswaADO
             try
             {
                 if (conn.State == ConnectionState.Closed)
-                {
                     conn.Open();
-                }
 
-                if (txtNIDN.Text == "")
+                // VALIDASI
+                if (txtNIDN.Text.Trim() == "")
                 {
                     MessageBox.Show("NIDN harus diisi");
                     txtNIDN.Focus();
                     return;
                 }
 
-                if (txtNama.Text == "")
+                if (txtNama.Text.Trim() == "")
                 {
                     MessageBox.Show("Nama harus diisi");
                     txtNama.Focus();
@@ -109,24 +110,55 @@ namespace CRUDMahasiswaADO
                     return;
                 }
 
-                string query = @"INSERT INTO JadwalDosen 
-                (DosenID, Tanggal, WaktuMulai, WaktuSelesai, Status)
-                VALUES (@DosenID, @Tanggal, @Mulai, @Selesai, @Status)";
+                // =========================
+                // 1. INSERT / CEK DOSEN
+                // =========================
+                string checkDosen = "SELECT DosenID FROM Dosen WHERE NIDN = @NIDN";
+                SqlCommand cmdCheck = new SqlCommand(checkDosen, conn);
+                cmdCheck.Parameters.AddWithValue("@NIDN", txtNIDN.Text.Trim());
 
-                SqlCommand cmd = new SqlCommand(query, conn);
+                object resultCheck = cmdCheck.ExecuteScalar();
 
-                cmd.Parameters.AddWithValue("@DosenID", userID = 1);
+                int dosenID;
+
+                if (resultCheck != null)
+                {
+                    dosenID = Convert.ToInt32(resultCheck);
+                }
+                else
+                {
+                    string insertDosen = @"
+            INSERT INTO Dosen (NIDN, Nama)
+            OUTPUT INSERTED.DosenID
+            VALUES (@NIDN, @Nama)";
+
+                    SqlCommand cmdDosen = new SqlCommand(insertDosen, conn);
+                    cmdDosen.Parameters.AddWithValue("@NIDN", txtNIDN.Text.Trim());
+                    cmdDosen.Parameters.AddWithValue("@Nama", txtNama.Text.Trim());
+
+                    dosenID = (int)cmdDosen.ExecuteScalar();
+                }
+
+                // =========================
+                // 2. INSERT JADWAL
+                // =========================
+                string queryJadwal = @"
+        INSERT INTO JadwalDosen 
+        (DosenID, Tanggal, WaktuMulai, WaktuSelesai, Status)
+        VALUES (@DosenID, @Tanggal, @Mulai, @Selesai, @Status)";
+
+                SqlCommand cmd = new SqlCommand(queryJadwal, conn);
+                cmd.Parameters.AddWithValue("@DosenID", dosenID);
                 cmd.Parameters.AddWithValue("@Tanggal", dtpTanggalKetersediaan.Value.Date);
-                cmd.Parameters.AddWithValue("@Mulai", dtpWaktuMulai.Value);
-                cmd.Parameters.AddWithValue("@Selesai", dtpWaktuSelesai.Value);
+                cmd.Parameters.AddWithValue("@Mulai", dtpWaktuMulai.Value.TimeOfDay);
+                cmd.Parameters.AddWithValue("@Selesai", dtpWaktuSelesai.Value.TimeOfDay);
                 cmd.Parameters.AddWithValue("@Status", cmbStatus.Text);
-
 
                 int result = cmd.ExecuteNonQuery();
 
                 if (result > 0)
                 {
-                    MessageBox.Show("Data  Jadwal Dosen berhasil ditambahkan");
+                    MessageBox.Show("Data Jadwal Dosen berhasil ditambahkan");
                     ClearForm();
                     btnLoad.PerformClick();
                 }
@@ -146,38 +178,82 @@ namespace CRUDMahasiswaADO
         {
             try
             {
-                if (conn.State == System.Data.ConnectionState.Closed)
+                // Validasi: pastikan baris sudah dipilih
+                if (SelectedID == 0)
+                {
+                    MessageBox.Show("Pilih data di tabel terlebih dahulu!");
+                    return;
+                }
+
+                // Validasi input
+                if (txtNIDN.Text.Trim() == "")
+                {
+                    MessageBox.Show("NIDN harus diisi");
+                    txtNIDN.Focus();
+                    return;
+                }
+
+                if (txtNama.Text.Trim() == "")
+                {
+                    MessageBox.Show("Nama harus diisi");
+                    txtNama.Focus();
+                    return;
+                }
+
+                if (cmbStatus.Text == "")
+                {
+                    MessageBox.Show("Status harus diisi");
+                    cmbStatus.Focus();
+                    return;
+                }
+
+                if (conn.State == ConnectionState.Closed)
                 {
                     conn.Open();
                 }
 
-                string query = @"
-UPDATE JadwalDosen
-SET Tanggal = @Tanggal,
-    WaktuMulai = @Mulai,
-    WaktuSelesai = @Selesai,
-    Status = @Status
-WHERE JadwalID = @JadwalID";
+                // UPDATE tabel Dosen (Nama dan NIDN)
+                string queryDosen = @"
+            UPDATE Dosen
+            SET NIDN = @NIDN,
+                Nama = @Nama
+            WHERE DosenID = @DosenID";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmdDosen = new SqlCommand(queryDosen, conn);
+                cmdDosen.Parameters.AddWithValue("@NIDN", txtNIDN.Text.Trim());  // pakai .Text
+                cmdDosen.Parameters.AddWithValue("@Nama", txtNama.Text.Trim());  // pakai .Text
+                cmdDosen.Parameters.AddWithValue("@DosenID", SelectedDosenID);   // ID dosen yang dipilih
+                cmdDosen.ExecuteNonQuery();
 
-                cmd.Parameters.AddWithValue("@JadwalID", SelectedID);
-                cmd.Parameters.AddWithValue("@Tanggal", dtpTanggalKetersediaan.Value.Date);
-                cmd.Parameters.AddWithValue("@Mulai", dtpWaktuMulai.Value);
-                cmd.Parameters.AddWithValue("@Selesai", dtpWaktuSelesai.Value);
-                cmd.Parameters.AddWithValue("@Status", cmbStatus.Text);
+                // UPDATE tabel JadwalDosen (Tanggal, WaktuMulai, WaktuSelesai, Status)
+                string queryJadwal = @"
+            UPDATE JadwalDosen
+            SET Tanggal      = @Tanggal,
+                WaktuMulai   = @Mulai,
+                WaktuSelesai = @Selesai,
+                Status       = @Status
+            WHERE JadwalID = @JadwalID";
 
-                int result = cmd.ExecuteNonQuery();
+                SqlCommand cmdJadwal = new SqlCommand(queryJadwal, conn);
+                cmdJadwal.Parameters.AddWithValue("@Tanggal", dtpTanggalKetersediaan.Value.Date);
+                cmdJadwal.Parameters.AddWithValue("@Mulai", dtpWaktuMulai.Value.TimeOfDay);
+                cmdJadwal.Parameters.AddWithValue("@Selesai", dtpWaktuSelesai.Value.TimeOfDay);
+                cmdJadwal.Parameters.AddWithValue("@Status", cmbStatus.Text);
+                cmdJadwal.Parameters.AddWithValue("@JadwalID", SelectedID);
+
+                int result = cmdJadwal.ExecuteNonQuery();
 
                 if (result > 0)
                 {
-                    MessageBox.Show("Data Jadwal Dosen berhasil diperbarui");
+                    MessageBox.Show("Data Jadwal Dosen berhasil diperbarui!");
                     ClearForm();
+                    SelectedID = 0;
+                    SelectedDosenID = 0;
                     btnLoad.PerformClick();
                 }
                 else
                 {
-                    MessageBox.Show("Gagal memperbarui data");
+                    MessageBox.Show("Gagal memperbarui data. Pastikan data sudah dipilih.");
                 }
             }
             catch (Exception ex)
@@ -243,6 +319,7 @@ WHERE JadwalID = @JadwalID";
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
                 SelectedID = Convert.ToInt32(row.Cells["JadwalID"].Value);
+                SelectedDosenID = Convert.ToInt32(row.Cells["DosenID"].Value);
 
                 txtNIDN.Text = row.Cells["NIDN"].Value?.ToString();
                 txtNama.Text = row.Cells["Nama"].Value?.ToString();
@@ -256,6 +333,9 @@ WHERE JadwalID = @JadwalID";
 
                 if (row.Cells["WaktuSelesai"].Value != DBNull.Value)
                     dtpWaktuSelesai.Value = DateTime.Today.Add((TimeSpan)row.Cells["WaktuSelesai"].Value);
+
+                txtNIDN.Text = row.Cells["NIDN"].Value?.ToString();
+
             }
         }
 
@@ -285,6 +365,10 @@ WHERE JadwalID = @JadwalID";
         }
 
         private void cmbJK_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void FormDosen_Load_1(object sender, EventArgs e)
         {
 
         }

@@ -52,7 +52,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 45);
+            this.label1.Location = new System.Drawing.Point(37, 242);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 0;
@@ -60,15 +60,15 @@
             // 
             // txtNIDN
             // 
-            this.txtNIDN.Location = new System.Drawing.Point(117, 42);
+            this.txtNIDN.Location = new System.Drawing.Point(218, 236);
             this.txtNIDN.Name = "txtNIDN";
-            this.txtNIDN.Size = new System.Drawing.Size(160, 22);
+            this.txtNIDN.Size = new System.Drawing.Size(200, 22);
             this.txtNIDN.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 83);
+            this.label2.Location = new System.Drawing.Point(37, 273);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 16);
             this.label2.TabIndex = 2;
@@ -76,15 +76,15 @@
             // 
             // txtNama
             // 
-            this.txtNama.Location = new System.Drawing.Point(171, 80);
+            this.txtNama.Location = new System.Drawing.Point(218, 267);
             this.txtNama.Name = "txtNama";
-            this.txtNama.Size = new System.Drawing.Size(160, 22);
+            this.txtNama.Size = new System.Drawing.Size(200, 22);
             this.txtNama.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 117);
+            this.label3.Location = new System.Drawing.Point(37, 303);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(141, 16);
             this.label3.TabIndex = 4;
@@ -97,16 +97,16 @@
             "Available",
             "Unavailable",
             "Booked"});
-            this.cmbStatus.Location = new System.Drawing.Point(134, 212);
+            this.cmbStatus.Location = new System.Drawing.Point(218, 394);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(160, 24);
+            this.cmbStatus.Size = new System.Drawing.Size(200, 24);
             this.cmbStatus.TabIndex = 5;
             this.cmbStatus.SelectedIndexChanged += new System.EventHandler(this.cmbJK_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 150);
+            this.label4.Location = new System.Drawing.Point(37, 335);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 16);
             this.label4.TabIndex = 6;
@@ -115,7 +115,7 @@
             // dtpWaktuMulai
             // 
             this.dtpWaktuMulai.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpWaktuMulai.Location = new System.Drawing.Point(117, 150);
+            this.dtpWaktuMulai.Location = new System.Drawing.Point(218, 329);
             this.dtpWaktuMulai.Name = "dtpWaktuMulai";
             this.dtpWaktuMulai.Size = new System.Drawing.Size(200, 22);
             this.dtpWaktuMulai.TabIndex = 7;
@@ -123,7 +123,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 179);
+            this.label5.Location = new System.Drawing.Point(37, 367);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(94, 16);
             this.label5.TabIndex = 8;
@@ -132,7 +132,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 214);
+            this.label6.Location = new System.Drawing.Point(37, 397);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 16);
             this.label6.TabIndex = 10;
@@ -140,7 +140,7 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(415, 41);
+            this.btnConnect.Location = new System.Drawing.Point(530, 260);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(155, 23);
             this.btnConnect.TabIndex = 12;
@@ -150,7 +150,7 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(415, 77);
+            this.btnLoad.Location = new System.Drawing.Point(530, 289);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(155, 23);
             this.btnLoad.TabIndex = 13;
@@ -160,7 +160,7 @@
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(415, 114);
+            this.btnInsert.Location = new System.Drawing.Point(530, 318);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(155, 23);
             this.btnInsert.TabIndex = 14;
@@ -170,7 +170,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(415, 150);
+            this.btnUpdate.Location = new System.Drawing.Point(530, 347);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(155, 23);
             this.btnUpdate.TabIndex = 15;
@@ -180,7 +180,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(415, 182);
+            this.btnDelete.Location = new System.Drawing.Point(530, 376);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(155, 23);
             this.btnDelete.TabIndex = 16;
@@ -191,16 +191,16 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(56, 288);
+            this.dataGridView1.Location = new System.Drawing.Point(63, 37);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(613, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(613, 174);
             this.dataGridView1.TabIndex = 17;
             // 
             // dtpTanggalKetersediaan
             // 
-            this.dtpTanggalKetersediaan.Location = new System.Drawing.Point(171, 112);
+            this.dtpTanggalKetersediaan.Location = new System.Drawing.Point(218, 298);
             this.dtpTanggalKetersediaan.Name = "dtpTanggalKetersediaan";
             this.dtpTanggalKetersediaan.Size = new System.Drawing.Size(200, 22);
             this.dtpTanggalKetersediaan.TabIndex = 18;
@@ -208,7 +208,7 @@
             // dtpWaktuSelesai
             // 
             this.dtpWaktuSelesai.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpWaktuSelesai.Location = new System.Drawing.Point(121, 180);
+            this.dtpWaktuSelesai.Location = new System.Drawing.Point(218, 362);
             this.dtpWaktuSelesai.Name = "dtpWaktuSelesai";
             this.dtpWaktuSelesai.Size = new System.Drawing.Size(200, 22);
             this.dtpWaktuSelesai.TabIndex = 19;
@@ -238,6 +238,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormDosen";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FormDosen_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

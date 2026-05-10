@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -86,6 +87,8 @@ namespace CRUDMahasiswaADO
             }
         }
 
+
+
         private void btnInsert_Click(object sender, EventArgs e)
         {
             try
@@ -93,16 +96,32 @@ namespace CRUDMahasiswaADO
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
+                // VALIDASI ANGKA
+                if (!int.TryParse(txtJadwalID.Text, out int jadwalID))
+                {
+                    MessageBox.Show("JadwalID harus angka");
+                    return;
+                }
+
+                if (!int.TryParse(txtMahasiswaID.Text, out int mahasiswaID))
+                {
+                    MessageBox.Show("MahasiswaID harus angka");
+                    return;
+                }
+
+                // DEFAULT STATUS
+                string status = cmbStatus.Text == "" ? "Available" : cmbStatus.Text;
+
                 string query = @"INSERT INTO Pertemuan 
-                (JadwalID, MahasiswaID, Status, CatatanPermintaan)
-                VALUES
-                (@JadwalID, @MahasiswaID, @Status, @Catatan)";
+        (JadwalID, MahasiswaID, Status, CatatanPermintaan)
+        VALUES
+        (@JadwalID, @MahasiswaID, @Status, @Catatan)";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@JadwalID", txtJadwalID.Text);
-                cmd.Parameters.AddWithValue("@MahasiswaID", txtMahasiswaID.Text);
-                cmd.Parameters.AddWithValue("@Status", cmbStatus.Text); // Pending default
+                cmd.Parameters.AddWithValue("@JadwalID", jadwalID);
+                cmd.Parameters.AddWithValue("@MahasiswaID", mahasiswaID);
+                cmd.Parameters.AddWithValue("@Status", status);
                 cmd.Parameters.AddWithValue("@Catatan", txtCatatan.Text);
 
                 cmd.ExecuteNonQuery();
@@ -116,6 +135,7 @@ namespace CRUDMahasiswaADO
             }
         }
 
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
@@ -123,14 +143,26 @@ namespace CRUDMahasiswaADO
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
+                if (txtPertemuanID.Text == "")
+                {
+                    MessageBox.Show("Pilih data dulu!");
+                    return;
+                }
+
+                if (cmbStatus.Text == "")
+                {
+                    MessageBox.Show("Status harus dipilih!");
+                    return;
+                }
+
                 string query = @"UPDATE Pertemuan
-                                 SET Status = @Status
-                                 WHERE PertemuanID = @ID";
+                         SET Status = @Status
+                         WHERE PertemuanID = @ID";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@Status", cmbStatus.Text);
-                cmd.Parameters.AddWithValue("@ID", txtPertemuanID.Text);
+                cmd.Parameters.AddWithValue("@ID", Convert.ToInt32(txtPertemuanID.Text));
 
                 cmd.ExecuteNonQuery();
 
@@ -178,6 +210,17 @@ namespace CRUDMahasiswaADO
                 cmbStatus.Text = row.Cells["Status"].Value.ToString();
                 txtCatatan.Text = row.Cells["CatatanPermintaan"].Value.ToString();
             }
+        }
+
+        private void JadwalPertemuan_Load(object sender, EventArgs e)
+        {
+            cmbStatus.Items.Clear();
+            cmbStatus.Items.Add("Pending");
+            cmbStatus.Items.Add("Available");
+            cmbStatus.Items.Add("Denied");
+            cmbStatus.Items.Add("Completed");
+
+            cmbStatus.SelectedIndex = 0;
         }
     }
 }
